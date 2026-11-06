@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Weekly update of the African public holidays: off until the administrator turns it on in Settings. -->
+    <record id="ir_cron_acd_sync" model="ir.cron">
+        <field name="name">African Holidays &amp; Taxes: update public holidays</field>
+        <field name="model_id" ref="base.model_res_company"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_acd_sync()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">weeks</field>
+        <field name="active" eval="False"/>
+    </record>
+</odoo>

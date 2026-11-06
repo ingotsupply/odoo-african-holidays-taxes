@@ -1,0 +1,78 @@
+<section class="container">
+  <div class="row">
+    <div class="col-12 text-center">
+      <h2 class="mt-4">African Holidays &amp; Taxes</h2>
+      <p class="lead">The national public holidays of 54 African countries in your Odoo working schedules and Time Off,
+        kept up to date, with an optional reference list of VAT, withholding tax and e-invoicing data.</p>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <h3>Public holidays, no account needed</h3>
+      <ul>
+        <li>Choose the countries (any of the 54 African countries) and the working schedule.</li>
+        <li>One click imports the national public holidays of the current year and up to three following years as
+          public holidays (company-wide or for one working schedule), so leave and attendance computations skip them.</li>
+        <li>Moon-sighted holidays (Eid al-Fitr, Eid al-Adha, Mawlid...) are marked <b>estimated</b> until the date is
+          announced. The weekly update (optional) moves them to the announced date and removes the mark.</li>
+        <li>Each holiday keeps its legal basis and is matched on a stable identifier, so updates never create
+          duplicates. Imported holidays are never deleted by the module.</li>
+      </ul>
+    </div>
+    <div class="col-md-6">
+      <img src="screenshot_holidays.png" class="img-fluid border" alt="Imported public holidays"/>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <img src="screenshot_tax_reference.png" class="img-fluid border" alt="Tax reference list"/>
+    </div>
+    <div class="col-md-6">
+      <h3>Tax reference (optional API key)</h3>
+      <ul>
+        <li>With an Africa Compliance Data API key (a paid subscription of that service), a read-only list shows, for
+          the chosen countries: VAT rates, withholding tax rates for residents and non-residents by payment type, and
+          the e-invoicing requirement, each with its legal basis, source and confidence level.</li>
+        <li>It is a reference list: it does not create or change any tax in your accounting.</li>
+        <li>Everything else in this module works without a key.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <h3>External service and your data</h3>
+      <p>This module uses an external service, Africa Compliance Data. Nothing is sent until an administrator turns
+        the connection on in Settings.</p>
+      <ul>
+        <li><b>Public holidays:</b> one request per selected country to the service's public holiday calendar feed.
+          The request contains only the country code.</li>
+        <li><b>Tax reference (only with an API key):</b> requests contain only the country code and your key.</li>
+        <li>No partner, invoice, employee, payroll or other business data is ever sent. Your data stays in your
+          database and belongs to you.</li>
+        <li>The public holiday feeds may be used by businesses free of charge; the holidays are credited to
+          Africa Compliance Data in the list.</li>
+      </ul>
+    </div>
+    <div class="col-md-6">
+      <img src="screenshot_settings.png" class="img-fluid border" alt="Settings"/>
+    </div>
+  </div>
+
+  <div class="row mt-4 mb-4">
+    <div class="col-12">
+      <h3>Setup</h3>
+      <ol>
+        <li>Install the module (it depends only on standard modules).</li>
+        <li>Settings, African Holidays &amp; Taxes: turn on the connection, choose countries and, if you like, a
+          working schedule and the weekly update.</li>
+        <li>Click <b>Import public holidays</b>. The holidays appear in Settings, African Holidays &amp; Taxes, Public
+          holidays, and in your working schedules and Time Off.</li>
+      </ol>
+      <p class="text-muted">Reference information with its sources, not legal or tax advice: check the cited source
+        before relying on a value. Support: <a href="mailto:support@africacompliancedata.com">support@africacompliancedata.com</a></p>
+    </div>
+  </div>
+</section>

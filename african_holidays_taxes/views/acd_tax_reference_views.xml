@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="acd_tax_reference_list" model="ir.ui.view">
+        <field name="name">acd.tax.reference.list</field>
+        <field name="model">acd.tax.reference</field>
+        <field name="arch" type="xml">
+            <list string="African tax reference" create="false" edit="false" delete="false">
+                <field name="country_id"/>
+                <field name="kind"/>
+                <field name="label"/>
+                <field name="has_rate" column_invisible="True"/>
+                <field name="rate" invisible="kind != 'vat'"/>
+                <field name="resident_rate" invisible="kind != 'wht' or not has_rate"/>
+                <field name="non_resident_rate" invisible="kind != 'wht' or not has_rate"/>
+                <field name="confidence" optional="show"/>
+                <field name="fetched_on" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="acd_tax_reference_form" model="ir.ui.view">
+        <field name="name">acd.tax.reference.form</field>
+        <field name="model">acd.tax.reference</field>
+        <field name="arch" type="xml">
+            <form string="African tax reference" create="false" edit="false" delete="false">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="country_id"/>
+                            <field name="kind"/>
+                            <field name="label"/>
+                            <field name="has_rate" invisible="1"/>
+                            <field name="rate" invisible="kind != 'vat'"/>
+                            <field name="resident_rate" invisible="kind != 'wht' or not has_rate"/>
+                            <field name="non_resident_rate" invisible="kind != 'wht' or not has_rate"/>
+                        </group>
+                        <group>
+                            <field name="legal_basis"/>
+                            <field name="source_url" widget="url"/>
+                            <field name="confidence"/>
+                            <field name="fetched_on"/>
+                        </group>
+                    </group>
+                    <field name="detail" nolabel="1"/>
+                    <div class="text-muted">
+                        Reference data from Africa Compliance Data, with its source. Not legal or tax advice: check the
+                        cited source before relying on a value. Your taxes are not changed by this list.
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="acd_tax_reference_search" model="ir.ui.view">
+        <field name="name">acd.tax.reference.search</field>
+        <field name="model">acd.tax.reference</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="country_id"/>
+                <field name="label"/>
+                <filter name="vat" string="VAT" domain="[('kind', '=', 'vat')]"/>
+                <filter name="wht" string="Withholding tax" domain="[('kind', '=', 'wht')]"/>
+                <filter name="einvoicing" string="E-invoicing" domain="[('kind', '=', 'einvoicing')]"/>
+                <group>
+                    <filter name="by_country" string="Country" context="{'group_by': 'country_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_acd_tax_reference" model="ir.actions.act_window">
+        <field name="name">African tax reference</field>
+        <field name="res_model">acd.tax.reference</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No tax reference yet</p>
+            <p>Enter your API key in Settings (African Holidays &amp; Taxes) and click Update tax reference.</p>
+        </field>
+    </record>
+
+    <menuitem id="menu_acd_tax_reference" name="Tax reference" parent="menu_acd_root"
+              action="action_acd_tax_reference" sequence="20"/>
+</odoo>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="resource_calendar_leave_form_acd" model="ir.ui.view">
+        <field name="name">resource.calendar.leaves.form.african_holidays_taxes</field>
+        <field name="model">resource.calendar.leaves</field>
+        <field name="inherit_id" ref="resource.resource_calendar_leave_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='leave_dates']" position="after">
+                <group name="acd_source" string="Source" invisible="not acd_uid">
+                    <field name="acd_country_id"/>
+                    <field name="acd_estimated"/>
+                    <field name="acd_credit"/>
+                    <field name="acd_source_note"/>
+                    <field name="acd_uid" groups="base.group_no_one"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="resource_calendar_leave_tree_acd" model="ir.ui.view">
+        <field name="name">resource.calendar.leaves.list.african_holidays_taxes</field>
+        <field name="model">resource.calendar.leaves</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <list string="African public holidays" create="false">
+                <field name="date_from" string="Date" options="{'show_time': false}"/>
+                <field name="date_to" options="{'show_time': false}" optional="hide"/>
+                <field name="name" string="Holiday"/>
+                <field name="acd_country_id"/>
+                <field name="acd_estimated"/>
+                <field name="calendar_id"/>
+                <field name="company_id" groups="base.group_multi_company" optional="hide"/>
+                <field name="acd_credit" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_acd_public_holidays" model="ir.actions.act_window">
+        <field name="name">African public holidays</field>
+        <field name="res_model">resource.calendar.leaves</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="resource_calendar_leave_tree_acd"/>
+        <field name="domain">[('acd_uid', '!=', False)]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No African public holidays imported yet</p>
+            <p>Turn on the connection, choose countries in Settings (African Holidays &amp; Taxes), then click Import public holidays.</p>
+        </field>
+    </record>
+
+    <menuitem id="menu_acd_root" name="African Holidays &amp; Taxes" parent="base.menu_administration" sequence="90"
+              groups="base.group_system"/>
+    <menuitem id="menu_acd_public_holidays" name="Public holidays" parent="menu_acd_root"
+              action="action_acd_public_holidays" sequence="10"/>
+</odoo>

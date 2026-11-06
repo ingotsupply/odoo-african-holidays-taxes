@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.african_holidays_taxes</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="90"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="African Holidays &amp; Taxes" string="African Holidays &amp; Taxes" name="african_holidays_taxes" groups="base.group_system">
+                    <block title="Connection" name="acd_connection">
+                        <setting id="acd_enabled_setting" string="Connect to the Africa Compliance Data service"
+                                 help="External service. Nothing is sent while this is off.">
+                            <field name="acd_enabled"/>
+                            <div class="text-muted mt8">
+                                When on, Odoo requests the public holiday feed of each country selected below (the request
+                                contains only the country code; no key or account needed). With an API key, it also requests
+                                the tax reference data of those countries (the request contains only the country code and
+                                your key). No partner, invoice, employee or other business data is ever sent.
+                            </div>
+                        </setting>
+                        <setting id="acd_api_key_setting" string="API key (optional)"
+                                 help="Only for the tax reference list. Public holidays need no key.">
+                            <field name="acd_api_key" password="True"/>
+                        </setting>
+                    </block>
+                    <block title="Public holidays" name="acd_holidays">
+                        <setting id="acd_countries_setting" string="Countries"
+                                 help="National public holidays of these countries are added to your public holidays.">
+                            <field name="acd_country_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                        </setting>
+                        <setting id="acd_calendar_setting" string="Working schedule"
+                                 help="Leave empty to apply the holidays to all working schedules of the company.">
+                            <field name="acd_calendar_id" options="{'no_create': True}"/>
+                        </setting>
+                        <setting id="acd_years_setting" string="Years ahead"
+                                 help="The current year and this many following years (0 to 3).">
+                            <field name="acd_years_ahead"/>
+                        </setting>
+                        <setting id="acd_weekly_setting" string="Update every week"
+                                 help="Picks up announced dates of moon-sighted holidays (marked estimated until then).">
+                            <field name="acd_weekly"/>
+                        </setting>
+                        <setting id="acd_sync_setting" string="Import now">
+                            <button name="action_acd_sync_holidays" type="object" string="Import public holidays"
+                                    class="btn-primary" invisible="not acd_enabled"/>
+                            <button name="%(action_acd_public_holidays)d" type="action" string="View imported holidays"
+                                    class="btn-link"/>
+                        </setting>
+                    </block>
+                    <block title="Tax reference (API key)" name="acd_tax">
+                        <setting id="acd_tax_setting" string="VAT, withholding tax and e-invoicing"
+                                 help="A read-only reference list with the source of each value. Your taxes are not changed.">
+                            <button name="action_acd_update_tax_reference" type="object" string="Update tax reference"
+                                    class="btn-secondary" invisible="not acd_enabled or not acd_api_key"/>
+                            <button name="%(action_acd_tax_reference)d" type="action" string="View tax reference"
+                                    class="btn-link"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+</odoo>
